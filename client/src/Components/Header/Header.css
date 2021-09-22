@@ -1,0 +1,137 @@
+.header {
+    border-bottom: 1px solid rgb(199, 198, 198);
+    top: 0;
+    position: sticky;
+    background-color: var(--color-background);
+    z-index: 100;
+}
+
+.header-items {
+    width: 95%;
+    margin: 0 auto;
+    justify-content: space-between;
+    display: flex;
+    height: 65px;
+    align-items: center;
+}
+
+.logo {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.svg_header {
+    margin-bottom: -12px;
+    width: 30px;
+    fill: var(--color-text);
+}
+
+.logo h1 {
+    color: rgb(59, 157, 157);
+    margin-bottom: -5px;
+    font-size: 1rem;
+    font-weight: 900;
+    margin-top: 0;
+}
+
+.logo p {
+    font-size: 0.7em;
+    margin-top: 0;
+    color: var(--color-text)
+}   
+
+.search-box { 
+    display: flex;
+    align-items: center;
+    width: 40%;
+    background-color: rgb(223, 221, 221);
+    border-radius: 5px;
+    height: 70%;
+    padding: 0 5px;
+}
+
+.search-box input {
+    background-color: rgb(223, 221, 221);
+    max-width: 600px;
+    width: 100%;
+    border-style: none;
+    outline: none;
+}
+
+.icons {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icons img {
+    width: 25px;
+    margin-left: 20px;
+    filter: invert(var(--img-color));
+}
+
+.icons button {
+    width: fit-content;
+    border: none;
+    background-color: #1a73e8;
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-left: 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.icons button:hover {
+    background-color: #1562c6;
+    box-shadow: 0 1px 10px rgb(0 0 0 / 0.2);
+}
+
+.icons input {
+    display: none;
+}
+
+.upload {
+    display: flex;
+    align-items: center;
+}
+
+.upload img {
+    width: 20px;
+}
+
+.upload p {
+    font-size: 0.8em;
+    cursor: pointer;
+    color: var(--color-text);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+img:hover {
+    cursor: pointer;
+}
+
+
+@media (max-width: 670px) {
+    .search-box {
+        display: none;
+    }
+    .icons p {
+        display: none;
+    }
+}
+
+@media(max-width: 400px) {
+    .logo {
+        display: none;
+    }
+    .search-box {
+        display: none;
+    }
+    .icons {
+        right: 20px;
+        position: absolute;
+    }
+}
+

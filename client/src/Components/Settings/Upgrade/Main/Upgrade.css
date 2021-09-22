@@ -1,0 +1,76 @@
+.StripeElement {
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 7px;
+}
+
+.upgrade_main {
+    height: 100%;
+    display: flex;
+    background-color: var(--color-background);
+}
+
+.upgrade_form_div {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+  
+.upgrade_main form {
+    width: 400px;
+    border-radius: 4px;
+    height: fit-content;
+    background: #fff;
+    padding: 10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+}
+
+.upgrade_main button {
+    height: 35px;
+    background-color: #1a73e8;;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.upgradeInputDiv {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.UpgradeFormInput {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    height: 30px;
+    font-size: 16px;
+    width: 100%;
+    right: 0;
+}
+
+.UpgradeFormLabel {
+    width: 80px;
+    min-width: 70px;
+    padding: 11px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+    .upgrade_main {
+        display: flex;
+        flex-direction: column;
+    }
+    .upgrade_form_div {
+        width: 100%;
+    }
+}
+        

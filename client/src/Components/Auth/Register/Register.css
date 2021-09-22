@@ -1,0 +1,105 @@
+.register_form_div {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 8px;
+    height: auto;
+    max-width: 450px;
+    width: 80%;
+    color: var(--color-text)
+}
+
+.register_form {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 40px;
+}
+
+.register_form input {
+    height: 40px;
+    outline: none;
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 4px;
+}
+
+.register_form input:focus {
+    border: 2px solid #1a73e8;
+}
+
+.register_header h2 {
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.register_checkbox {
+    display: flex;
+    margin-top: 10px;
+}
+
+.register_checkbox input {
+    width: 15px;
+    margin-left: 0; 
+}
+
+.register_checkbox p {
+    margin-left: 8px;
+    font-size: 0.8rem;
+    align-self: center;
+}
+
+.register_form label {
+    margin-top: 10px;
+}
+
+.register_btn_div {
+    display: flex;
+    justify-content: space-between;
+    margin: 5% 0;
+}
+
+.route_to_sign_in {
+    background: none;
+    border: none;
+    color:#1a73e8;
+    font-weight: 600;
+    padding: 0;
+}
+
+.submit_register_btn {
+    border: none;
+    background-color: #1a73e8;
+    border-radius: 4px;
+    padding: 8px 15px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.register_btn_div button {
+    cursor: pointer;
+}
+
+.register_message {
+    height: 50px;
+    background-color: #30b8645d;
+    border-radius: 4px;
+    color: #264e37fd;
+    max-width: 100%;
+    font-weight: 600;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+@media (max-width: 500px) {
+    .register_form_div {
+        width: fit-content;
+        height: fit-content;
+    }
+    .register_form {
+        padding: 10px 20px;
+    }
+}

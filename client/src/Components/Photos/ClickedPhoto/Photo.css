@@ -1,0 +1,73 @@
+.photo-main {
+    height: 100vh;
+    background-color: black;
+}
+
+.photo-display {
+    justify-content: center;
+    display: flex;
+    top: 0;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+}
+
+.photo-icons {
+   height: 50px;
+   display: flex; 
+   justify-content: space-between;
+   align-items: center;
+   margin-right: 22px;
+}
+
+.photo-icons * {
+    cursor: pointer;
+    z-index: 999;
+}
+
+#favorite-icon {
+    color: white;
+    width: 23px;
+    height: 23px;
+    cursor: pointer;
+    transition-delay: 0ms;
+    z-index: 999;
+}
+
+.photo_arrow_back {
+    transform: scaleX(-1);
+}
+
+.photo-icons img {
+    width: 20px;
+    padding: 0 13px;
+    filter: invert();
+}
+
+.selected-photo {
+    height: 100vh;
+    width: auto;
+    cursor:auto!important;
+}
+
+@media (max-width: 900px) {
+    .photo-display {
+        align-items: center;
+        top: 50px;
+        bottom: 50px;
+    }
+    .selected-photo {
+        height: auto;
+        max-height: 100vh;
+        width: auto;
+        max-width: 100vw;
+    }
+}
+
+@media (max-width: 500px) {
+    .selected-photo {
+        max-height: 100%;
+        width: auto;
+    }
+}

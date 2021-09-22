@@ -1,0 +1,14 @@
+body {
+  font-family: "Google Sans",Roboto,Arial,sans-serif;
+  margin: 0;
+  background-color: var(--color-background);
+  --color-background: #FAFAFA;
+  --color-text: #1F2023;
+  --img-color: 0%;
+}
+
+body.dark {
+  --color-background: #1F2023;
+  --color-text: #e4e2e2;
+  --img-color: 80%;
+}

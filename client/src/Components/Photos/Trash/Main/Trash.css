@@ -1,0 +1,158 @@
+.trash_main {
+    height: 100vh;
+    z-index: 0;
+    overflow: auto;
+    background-color: var(--color-background);
+}
+
+.trash_photos {
+    margin: 0 0 20px 270px; 
+    top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+
+.empty_trash_main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(172, 171, 171);
+    margin-bottom: 20px;
+    top: 66px;
+    position: sticky;
+    height: 80px;
+    width: 100%;
+    background-color: var(--color-background);
+}
+
+.empty_trash {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.empty_trash img {
+    filter: invert(var(--img-color));
+}
+
+.empty_trash_main h4 {
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin-left: 15px;
+    letter-spacing:-0.06em;
+    color: var(--color-text)
+}
+
+.empty_trash_main p {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: -0.05rem;
+    color: var(--color-text)
+}
+
+.text {
+    letter-spacing: -0.04rem;
+    color: var(--color-text);
+    width: 100%;
+}
+
+.empty_trash:hover {
+    cursor: pointer;
+}
+
+.trash_image {
+    height: 150px;
+    width: auto;
+}
+
+.delete_warning {
+    width: 250px;
+    height: 190px;
+    z-index: 999;
+    background-color: rgb(31, 31, 31);
+    color: rgb(231, 231, 231);
+    position: absolute;
+    border-radius: 5px;
+    top: 28px;
+    right: 120px;
+}
+
+.trash_delete_btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 40%;
+    height: 18%;
+    border-style: none;
+    border-radius: 4px;
+    background-color: #1a73e8;
+    font-weight: 700;
+    cursor: pointer;
+    color: rgb(226, 226, 226);
+}
+
+.trash_cancel_btn {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 40%;
+    height: 18%;
+    border-style: none;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+    background: none;
+    color: #1a73e8;
+}
+
+.trash_delete_btn:hover {
+    background-color: red;
+    opacity: 0.8;
+}
+
+.trash_cancel_btn:hover {
+    background-color: rgb(132, 146, 158);
+}
+
+.delete_warning p {
+    padding: 10px 30px;
+    letter-spacing: .00625em;
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3rem;
+    color: #fff;
+}
+
+@media (max-width: 900px) {
+    .trash_photos {
+        margin-left: 65px;
+    }
+}
+
+@media (max-width: 400px) {
+    .trash_image {
+        height: auto;
+        max-height: 220px;
+        width: auto;
+        max-width: 100%;
+    }
+    .trash_photos {
+        margin: 0;
+    }
+    .empty_trash_main {
+        margin-bottom: 0;
+    }
+    .text {
+        margin: 10px 20px;
+    }
+    .delete_warning {
+        width: 200px;
+        height: 200px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

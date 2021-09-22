@@ -1,0 +1,32 @@
+.photos {
+    margin: 5px 0 5px 265px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    gap: 0 3px;
+    background-color: var(--color-background);
+}
+
+.photos img  {
+    height: 150px;
+}
+
+@media (max-width: 900px) {
+    .photos {
+        margin-left: 60px;
+    }
+}
+
+@media (max-width: 400px) {
+    .photos {
+        justify-content: flex-start;
+        display: flex;
+        margin: 0 auto;
+}
+    .photos img {
+        height: auto;
+        max-height: 220px;
+        width: auto;
+        max-width: 100%;
+        padding-left: 0;
+}}
