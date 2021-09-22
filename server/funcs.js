@@ -37,12 +37,11 @@ module.exports.sendConfirmationEmail = (email, confirmationCode) => {
 //     }}
 
     module.exports.verifyJWT = (req, res, next) => {
-    const refToken = req.headers.cookie.split("refreshToken=")[1].split(";")[0]
     const accessToken = req.headers.cookie.split("access-token=")[1].split(";")[0]
     if (!accessToken) {
         return console.log("No accessToken")
     } else {
-        jwt.verify(accessToken, "process.env.REACT_APP_JWT_SECRET", (err, decoded) => {
+        jwt.verify(accessToken, process.env.REACT_APP_JWT_SECRET, (err, decoded) => {
             if (err) {
                 if (err.name === "TokenExpiredError") {
                     console.log(err.name)

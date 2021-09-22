@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt")
 const multer = require("multer")
 const AWS = require("aws-sdk")
 const uuid = require("uuid/v4");
-const { default: Stripe } = require("stripe");
+// const { default: Stripe } = require("stripe");
 require('dotenv').config()
 const {sendConfirmationEmail, verifyJWT} = require("./funcs")
 // const stripe = new Stripe(process.env.REACT_APP_stripe_secret)
@@ -168,7 +168,7 @@ app.post("/login", (req, res) => {
                 }})
         } else {
             res.json({error: "User does not exist" })
-        }}
+        }} 
     )
 })
 
