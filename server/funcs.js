@@ -26,9 +26,9 @@ module.exports.sendConfirmationEmail = (email, confirmationCode) => {
 // async function refreshToken(refToken, req, next, res) {
 //     try {
 //         console.log("bitch")
-//         const verify = await jwt.verify(refToken, "jwtSecret")
+//         const verify = await jwt.verify(refToken, "process.env.REACT_APP_JWT_SECRET")
 //         const {id} = verify
-//         const token = await jwt.sign({id}, "jwtSecret", {expiresIn: 10})
+//         const token = await jwt.sign({id}, "process.env.REACT_APP_JWT_SECRET", {expiresIn: 10})
 //         req.id = id
 //         res.cookie("access-token", token, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: true, secure: true})
 //         next()
@@ -42,7 +42,7 @@ module.exports.sendConfirmationEmail = (email, confirmationCode) => {
     if (!accessToken) {
         return console.log("No accessToken")
     } else {
-        jwt.verify(accessToken, "jwtSecret", (err, decoded) => {
+        jwt.verify(accessToken, "process.env.REACT_APP_JWT_SECRET", (err, decoded) => {
             if (err) {
                 if (err.name === "TokenExpiredError") {
                     console.log(err.name)

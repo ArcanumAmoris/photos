@@ -12,7 +12,7 @@ const uuid = require("uuid/v4");
 const { default: Stripe } = require("stripe");
 require('dotenv').config()
 const {sendConfirmationEmail, verifyJWT} = require("./funcs")
-const stripe = new Stripe(process.env.REACT_APP_stripe_secret)
+// const stripe = new Stripe(process.env.REACT_APP_stripe_secret)
 app.use(cors({credentials: true, origin: 'http://localhost:3005', optionsSuccessStatus: 200, methods: ['GET,HEAD,PUT,PATCH,POST,DELETE']}))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
@@ -44,7 +44,7 @@ app.post("/register", async (req, res) => {
         const {email, password} = req.body
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
-        const confirmationToken = jwt.sign({email}, "jwtSecret", {expiresIn: "24h"})
+        const confirmationToken = jwt.sign({email}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "24h"})
         db.query("INSERT INTO users (email, password, confirmationtoken) VALUES (?,?,?)", [email, hashedPassword, confirmationToken],
         (err, result) => {
             if (result) {
@@ -64,7 +64,7 @@ app.post("/register", async (req, res) => {
 
 app.post("/resend_link", (req, res) => {
     const {email} = req.body
-    const token = jwt.sign({email}, "jwtSecret", {expiresIn: "24h"})
+    const token = jwt.sign({email}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "24h"})
     db.query("UPDATE users SET confirmationtoken = ? WHERE email = ?", [token, email],
     (err, result) => {
         if (result) {
@@ -83,7 +83,7 @@ app.get("/confirm/:confirmid", (req, res) => {
     (err, result) => {
         if (result.length > 0) { 
             if (result[0].confirmationtoken.length > 0) {
-                const checkIfValid = jwt.verify(result[0].confirmationtoken, "jwtSecret")
+                const checkIfValid = jwt.verify(result[0].confirmationtoken, process.env.REACT_APP_JWT_SECRET)
                 if (checkIfValid) {
                     db.query("UPDATE users SET status = 'active' WHERE id = ?", [result[0].id],
                     (err, result) => {
@@ -112,9 +112,9 @@ function createS3Folder(userID, res, token) {
 //     console.log("hahah")
 //     const {refreshToken} = req.body
 //     try {
-//         const verify = await jwt.verify(refreshToken, "jwtSecret")
+//         const verify = await jwt.verify(refreshToken, process.env.REACT_APP_JWT_SECRET)
 //         const {id} = verify
-//         const token = await jwt.sign({id}, "jwtSecret", {expiresIn: 120})
+//         const token = await jwt.sign({id}, process.env.REACT_APP_JWT_SECRET, {expiresIn: 120})
 //         res.cookie("access-token", token, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: true, secure: true}).send()
 //     } catch (error) {
 //         console.log(error)
@@ -158,8 +158,8 @@ app.post("/login", (req, res) => {
             bcrypt.compare(password, result[0].password, (error, response) => {
                 if (response) {
                     const id = result[0].id
-                    const token = jwt.sign({id}, "jwtSecret", {expiresIn: "2d"})
-                    // const refreshToken = jwt.sign({id}, "jwtSecret", {expiresIn: "6h"})
+                    const token = jwt.sign({id}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "2d"})
+                    // const refreshToken = jwt.sign({id}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "6h"})
                     // res.cookie("refreshToken", refreshToken, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: true, secure: true})
                     res.cookie("access-token", token, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: true, secure: true})
                     res.json({auth: true, result, id});
