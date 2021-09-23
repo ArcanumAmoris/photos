@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt")
 const multer = require("multer")
 const AWS = require("aws-sdk")
-const {uuid} = require("uuid/v4");
+// const {uuid} = require("uuid/v4");
 // const { default: Stripe } = require("stripe");
 require('dotenv').config()
 const {sendConfirmationEmail, verifyJWT} = require("./funcs")
@@ -193,7 +193,7 @@ app.post("/upload", verifyJWT, upload, (req, res) => {
     const fileType = req.file.mimetype.split("/")[1]
     const params = {
         Bucket: `photos-photos/${userID}`,
-        Key: `${uuid()}.${fileType}`,
+        Key: `file.${fileType}`,
         Body: req.file.buffer
     }
     s3.upload(params, (error, data) => {
