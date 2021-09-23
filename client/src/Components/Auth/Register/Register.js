@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from "axios"
 import "./Register.css"
@@ -10,6 +10,10 @@ function Register() {
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const history = useHistory()
+
+    useEffect(() => {
+        return axios.post('https://photos-photos.herokuapp.com/hello')
+    }, [])
 
     async function register(e) {
         e.preventDefault()
