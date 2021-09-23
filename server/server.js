@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cookieParser())
 
+app.set("trust proxy", 1)
+
 const db = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USERNAME,
@@ -159,8 +161,6 @@ app.post("/login", (req, res) => {
                 if (response) {
                     const id = result[0].id
                     const token = jwt.sign({id}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "2d"})
-                    // const refreshToken = jwt.sign({id}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "6h"})
-                    // res.cookie("refreshToken", refreshToken, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: true, secure: true})
                     res.cookie("access-token", token, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: true, secure: true})
                     res.json({auth: true, result, id});
                 } else {
