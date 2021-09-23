@@ -55,7 +55,7 @@ app.post("/register", async (req, res) => {
                     res.send({error: "An account with that email already exists."})
                 }
             }
-        }
+            }
         ) 
     } catch (e) {
         console.log(e)
