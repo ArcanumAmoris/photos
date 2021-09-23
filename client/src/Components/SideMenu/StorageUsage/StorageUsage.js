@@ -16,7 +16,7 @@ function StorageUsage() {
 
     useEffect(() => {
         async function getStorageUsage() {
-            const response = await axios.post('http://localhost:3001/get_storage', {}, {withCredentials: true})
+            const response = await axios.post(`${process.env.REACT_APP_backend_url}/get_storage`, {}, {withCredentials: true})
             if (response.data) {
                 bytesToGB(response.data[0].sum)
             }

@@ -13,16 +13,16 @@ const { v4: uuid } = require('uuid');
 require('dotenv').config()
 const {sendConfirmationEmail, verifyJWT} = require("./funcs")
 // const stripe = new Stripe(process.env.REACT_APP_stripe_secret)
-app.use(cors({credentials: true, origin: 'http://localhost:3005', optionsSuccessStatus: 200, methods: ['GET,HEAD,PUT,PATCH,POST,DELETE']}))
+app.use(cors({credentials: true, origin: process.env.ORIGIN_ALLOWED, optionsSuccessStatus: 200, methods: ['GET,HEAD,PUT,PATCH,POST,DELETE']}))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cookieParser())
 
 const db = mysql.createPool({
-    host: "127.0.0.1",
-    user: "root",
-    password: 'password',
-    database: "Photos",
+    host: process.env.HOST,
+    user: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
 })
 
 process.on('uncaughtException', (error, origin) => {
@@ -55,7 +55,7 @@ app.post("/register", async (req, res) => {
                     res.send({error: "An account with that email already exists."})
                 }
             }
-            }
+        }
         ) 
     } catch (e) {
         console.log(e)

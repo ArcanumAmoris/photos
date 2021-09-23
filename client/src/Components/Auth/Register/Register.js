@@ -16,7 +16,7 @@ function Register() {
         setError("")
         setSuccess("")
         try {
-            const response = await axios.post("http://localhost:3001/register", {email, password})
+            const response = await axios.post(`${process.env.REACT_APP_backend_url}/register`, {email, password})
             if (response.data.error) {
                 setError(response.data.error)
             }

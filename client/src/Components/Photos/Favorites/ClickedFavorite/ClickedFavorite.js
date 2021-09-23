@@ -15,16 +15,9 @@ function ClickedFavorite(props) {
     let {id, favorite, photoKey} = useSelector(state => state.ClickedPhotoReducer)
     const update = useSelector(state => state.UpdateReducer)
 
-    // async function GetFavPhotos() {
-    //     const userID = localStorage.getItem("userID")
-    //     const response = await axios.post("http://localhost:3001/get_fav_photos", {userID})
-    //     if (response.data) {
-    //         setFavPhotos(response.data)
-    //     }}
-
     const GetFavPhotos = useCallback(async() => {
         const userID = localStorage.getItem("userID")
-        const response = await axios.post("http://localhost:3001/get_fav_photos", {userID})
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/get_fav_photos`, {userID})
         if (response.data) {
             setFavPhotos(response.data)
         }}, [])
@@ -47,7 +40,7 @@ function ClickedFavorite(props) {
     }
 
     async function AddToTrash() {
-        const response = await axios.post("http://localhost:3001/add_to_trash", {id})
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/add_to_trash`, {id})
         if (response.data) {
             store.dispatch({type: "Update", payload: !update})
             NextPhoto("Your photo has been moved to trash", +1)

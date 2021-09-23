@@ -21,7 +21,7 @@ function ClickedIMGTrash(props) {
 
     async function restorePhoto() {
         const photoID = photo.id
-        const response = await axios.post("http://localhost:3001/restore_photo", {photoID})
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/restore_photo`, {photoID})
         if (response.data) {
             store.dispatch({type: "Update", payload: !update})
             NextPhoto("Your photo has been restored successfully", +1)
@@ -62,7 +62,7 @@ function ClickedIMGTrash(props) {
     async function permanentlyDelete() {
         const photoID = photo.id
         const photoKey = photo.photoKey
-        const response = await axios.post("http://localhost:3001/delete_photo", {photoID, photoKey})
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/delete_photo`, {photoID, photoKey})
         if (response.data) {
             NextPhoto("Your Photo has been permanently deleted")
         }

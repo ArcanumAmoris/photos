@@ -18,7 +18,7 @@ function Trash() {
     const history = useHistory()
 
     async function GetTrash() {
-        const response = await axios.post("http://localhost:3001/get_trash", {}, {withCredentials: true})
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/get_trash`, {}, {withCredentials: true})
         if (response.data) {
             setTrashPhotos(response.data)
             store.dispatch({type: "SetLoading", payload: false})
@@ -30,7 +30,7 @@ function Trash() {
     }, [])
 
     async function clearTrash() {
-        const response = await axios.post("http://localhost:3001/empty_trash", {}, {withCredentials: true})
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/empty_trash`, {}, {withCredentials: true})
         if (response.data) {
             store.dispatch(Message("Trash has been cleared"))
             setShowDiv(false)

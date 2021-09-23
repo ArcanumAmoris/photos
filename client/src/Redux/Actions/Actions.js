@@ -13,7 +13,7 @@ export function Message(message) {
 export function GetPhotos() { 
     return async dispatch => {
         try {
-            const photos = await axios.post("http://localhost:3001/getphotos", {}, {withCredentials: true})
+            const photos = await axios.post(`${process.env.REACT_APP_backend_url}/getphotos`, {}, {withCredentials: true})
             if (photos.data) {
                 store.dispatch({type: "SetLoading", payload: false})
                 store.dispatch({type: "SetPhotos", payload: photos.data})
@@ -35,7 +35,7 @@ export function Update() {
 
 export function AddToFavorites(id, favorite, photoKey) {
     return async dispatch => {
-        const response = await axios.post("http://localhost:3001/favorite", {id})
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/favorite`, {id})
         if (response.data) {
             store.dispatch(Update())
             favorite === 1 ? favorite = 0 : favorite = 1

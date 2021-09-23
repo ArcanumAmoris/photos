@@ -38,7 +38,7 @@ function Header() {
         const formData = new FormData()
         const image =  await resizeImage(e.target.files[0])
         formData.append("myImage", image)
-        const response = await axios.post('http://localhost:3001/upload', 
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/upload`, 
         formData,
         {withCredentials: true}, 
         )

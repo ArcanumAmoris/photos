@@ -13,7 +13,7 @@ function Login() {
     async function login(e) {
         e.preventDefault()
         setShowResendBtn(false)
-        const response = await axios.post("http://localhost:3001/login", {email, password}, {withCredentials: true})
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/login`, {email, password}, {withCredentials: true})
         if (response.data.error) {
           return setMessage(response.data.error)
         }
@@ -28,7 +28,7 @@ function Login() {
         }}
 
     async function resendLink() {
-      const response = await axios.post("http://localhost:3001/resend_link", {email})
+      const response = await axios.post(`${process.env.REACT_APP_backend_url}/resend_link`, {email})
       if (response.data) {
         setMessage(response.data)
       }

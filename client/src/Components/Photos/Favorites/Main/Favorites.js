@@ -16,7 +16,7 @@ function Favorites() {
 
     async function GetFavPhotos() {
         const userID = localStorage.getItem("userID")
-        const response = await axios.post("http://localhost:3001/get_fav_photos", {userID})
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/get_fav_photos`, {userID})
         if (response.data) {
             setFavorites(response.data)
             store.dispatch({type: "SetLoading", payload: false})

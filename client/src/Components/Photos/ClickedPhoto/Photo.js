@@ -26,7 +26,7 @@ function Photo() {
     }
 
     async function AddToTrash() {
-        const response = await axios.post("http://localhost:3001/add_to_trash", {id})
+        const response = await axios.post(`${process.env.REACT_APP_backend_url}/add_to_trash`, {id})
         if (response.data) {
             store.dispatch(Update())
             NextPhoto("Your photo has been moved to trash", +1)
