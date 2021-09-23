@@ -10,11 +10,7 @@ function Register() {
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const history = useHistory()
-
-    useEffect(() => {
-        return axios.post('https://photos-photos.herokuapp.com/hello')
-    }, [])
-
+    
     async function register(e) {
         e.preventDefault()
         setError("")

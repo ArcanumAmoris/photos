@@ -39,11 +39,6 @@ process.on('unhandledRejection', (reason, promise) => {
     console.log(reason)
 })
 
-
-app.post("/hello", (req, res) => {
-    return console.log("boom!")
-})
-
 app.post("/register", async (req, res) => {
     try {
         const {email, password} = req.body
