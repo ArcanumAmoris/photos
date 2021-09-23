@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from "axios"
 import "./Register.css"
@@ -10,7 +10,7 @@ function Register() {
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const history = useHistory()
-    
+
     async function register(e) {
         e.preventDefault()
         setError("")
