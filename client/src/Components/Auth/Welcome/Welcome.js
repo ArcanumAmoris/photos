@@ -7,7 +7,7 @@ function Welcome() {
             <div className="welcome_div">
                 <h1>Account confirmed!</h1>
             </div>
-            <a href="http://localhost:3005/login">Please Login</a>
+            <a href={`${process.env.REACT_APP_client_url}/login`}>Please Login</a>
         </div>
     )
 }
