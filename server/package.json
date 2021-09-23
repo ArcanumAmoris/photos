@@ -22,7 +22,9 @@
     "nodemailer": "^6.6.3",
     "nodemon": "^2.0.12"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.15.5"
+  },
   "scripts": {
     "dev": "react-scripts start",
     "start": "node server.js",
