@@ -51,28 +51,32 @@ app.post("/register", async (req, res) => {
             } 
             else if (result.length > 0) {
                 res.send({error: "An account with that email already exists."})
-            } else async () => {
-                const salt = await bcrypt.genSalt(10)
-                const hashedPassword = await bcrypt.hash(password, salt)
-                const confirmationToken = jwt.sign({email}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "24h"})
-                db.query("INSERT INTO users (email, password, confirmationtoken) VALUES (?,?,?)", [email, hashedPassword, confirmationToken],
-                (err, result) => {
-                    if (result) {
-                        res.send({success: "Your account has been registered. Please verify your email to continue."})
-                        sendConfirmationEmail(email, confirmationToken)
-                    } else {
-                        if (err) {
-                            res.send({error: "An error occurred."})
-                        }
-                    }
-                }
-                ) 
+            } else {
+                saveUser(res, email, password)
             }
         })
     } catch (e) {
         console.log(e)
     }
  })
+
+async function saveUser(res, email, password) {
+    const hashedPassword = await bcrypt.hash(password, 10)
+    const confirmationToken = await jwt.sign({email}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "24h"})
+    db.query("INSERT INTO users (email, password, confirmationtoken) VALUES (?,?,?)", [email, hashedPassword, confirmationToken],
+    (err, result) => {
+        if (result) {
+            res.send({success: "Your account has been registered. Please verify your email to continue."})
+            sendConfirmationEmail(email, confirmationToken)
+        } else {
+            if (err) {
+                console.log(err)
+                res.send({error: "An error occurred your account has not been registered."})
+            }
+        }
+    }
+) 
+}
 
 app.post("/resend_link", (req, res) => {
     const {email} = req.body
