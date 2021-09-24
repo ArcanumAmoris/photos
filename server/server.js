@@ -107,7 +107,7 @@ function createS3Folder(userID, res, token) {
     db.query("UPDATE users SET confirmationtoken = '' where confirmationtoken = ?", [token])
     const params = { Bucket: 'photos-photos', Key: `${userID}/`, ACL: '', Body: ""};
     s3.upload(params, (err, data) => {
-        err ? console.log(err) : res.redirect(`${process.env.ORIGIN_ALLOWED}/login`)
+        err ? console.log(err) : res.redirect(`${process.env.ORIGIN_ALLOWED}/welcome`)
     })}
 
 // app.get("/refreshToken", async (req, res) => {
