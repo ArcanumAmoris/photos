@@ -164,7 +164,7 @@ app.post("/login", (req, res) => {
                     const id = result[0].id
                     const token = jwt.sign({id}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "7d"})
                     res.cookie("access-token", token, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: true, secure: true})
-                    res.status(200).json({auth: true, result, id});
+                    res.status(200).send({auth: true, result, id});
                 } else {
                     res.json({error: "Wrong username/password" })
                 }})
