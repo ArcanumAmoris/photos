@@ -44,21 +44,31 @@ process.on('unhandledRejection', (reason, promise) => {
 app.post("/register", async (req, res) => {
     try {
         const {email, password} = req.body
-        const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(password, salt)
-        const confirmationToken = jwt.sign({email}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "24h"})
-        db.query("INSERT INTO users (email, password, confirmationtoken) VALUES (?,?,?)", [email, hashedPassword, confirmationToken],
+        db.query("SELECT email FROM users WHERE email = ?", [email],
         (err, result) => {
-            if (result) {
-                res.send({success: "Your account has been registered. Please verify your email to continue."})
-                sendConfirmationEmail(email, confirmationToken)
-            } else {
-                if (err.code === "ER_DUP_ENTRY") {
-                    res.send({error: "An account with that email already exists."})
+            if (err) {
+                return console.log(err)
+            } 
+            else if (result.length > 0) {
+                res.send({error: "An account with that email already exists."})
+            } else async () => {
+                const salt = await bcrypt.genSalt(10)
+                const hashedPassword = await bcrypt.hash(password, salt)
+                const confirmationToken = jwt.sign({email}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "24h"})
+                db.query("INSERT INTO users (email, password, confirmationtoken) VALUES (?,?,?)", [email, hashedPassword, confirmationToken],
+                (err, result) => {
+                    if (result) {
+                        res.send({success: "Your account has been registered. Please verify your email to continue."})
+                        sendConfirmationEmail(email, confirmationToken)
+                    } else {
+                        if (err) {
+                            res.send({error: "An error occurred."})
+                        }
+                    }
                 }
+                ) 
             }
-        }
-        ) 
+        })
     } catch (e) {
         console.log(e)
     }
@@ -82,23 +92,25 @@ app.get("/confirm/:confirmid", (req, res) => {
     const {confirmid} = req.params
     db.query("SELECT confirmationtoken, id FROM users WHERE confirmationtoken = ?", 
     [confirmid],
-    (err, result) => {
+    async (err, result) => {
         if (result.length > 0) { 
             if (result[0].confirmationtoken.length > 0) {
-                const checkIfValid = jwt.verify(result[0].confirmationtoken, process.env.REACT_APP_JWT_SECRET)
-                if (checkIfValid) {
-                    db.query("UPDATE users SET status = 'active' WHERE id = ?", [result[0].id],
-                    (err, result) => {
-                        err ? console.log(err) : createS3Folder(result.id, res, confirmid)
-                    })
-                } else {
-                    console.log("Invalid")
+                try {
+                    const checkIfValid = await jwt.verify(result[0].confirmationtoken, process.env.REACT_APP_JWT_SECRET)
+                    if (checkIfValid) {
+                        db.query("UPDATE users SET status = 'active' WHERE id = ?", [result[0].id],
+                        (err, result) => {
+                            err ? console.log(err) : createS3Folder(result.id, res, confirmid)
+                        })
+                    } 
+                } catch (error) {
+                    console.log(error)
                 }
             } else {
                 console.log(err)
             }
         } else {
-            console.log("Not valid")
+            res.redirect(`${process.env.ORIGIN_ALLOWED}/login`, {message: "Fuck off"})
         }
     })
 })
@@ -109,20 +121,6 @@ function createS3Folder(userID, res, token) {
     s3.upload(params, (err, data) => {
         err ? console.log(err) : res.redirect(`${process.env.ORIGIN_ALLOWED}/welcome`)
     })}
-
-// app.get("/refreshToken", async (req, res) => {
-//     console.log("hahah")
-//     const {refreshToken} = req.body
-//     try {
-//         const verify = await jwt.verify(refreshToken, process.env.REACT_APP_JWT_SECRET)
-//         const {id} = verify
-//         const token = await jwt.sign({id}, process.env.REACT_APP_JWT_SECRET, {expiresIn: 120})
-//         res.cookie("access-token", token, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: true, secure: true}).send()
-//     } catch (error) {
-//         console.log(error)
-//         res.redirect("/logout") 
-//     }
-// })
 
 app.get("/logout", (req, res) => {
     res.send({redirect: "/login"})
