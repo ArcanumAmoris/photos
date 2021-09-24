@@ -23,19 +23,6 @@ module.exports.sendConfirmationEmail = (email, confirmationCode) => {
     }).catch(err => console.log(err));
 }; 
 
-// async function refreshToken(refToken, req, next, res) {
-//     try {
-//         console.log("bitch")
-//         const verify = await jwt.verify(refToken, "process.env.REACT_APP_JWT_SECRET")
-//         const {id} = verify
-//         const token = await jwt.sign({id}, "process.env.REACT_APP_JWT_SECRET", {expiresIn: 10})
-//         req.id = id
-//         res.cookie("access-token", token, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: true, secure: true})
-//         next()
-//     } catch (error) {
-//         console.log(error)
-//     }}
-
     module.exports.verifyJWT = (req, res, next) => {
     const accessToken = req.headers.cookie.split("access-token=")[1].split(";")[0]
     if (!accessToken) {

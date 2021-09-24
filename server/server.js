@@ -107,7 +107,7 @@ function createS3Folder(userID, res, token) {
     db.query("UPDATE users SET confirmationtoken = '' where confirmationtoken = ?", [token])
     const params = { Bucket: 'photos-photos', Key: `${userID}/`, ACL: '', Body: ""};
     s3.upload(params, (err, data) => {
-        err ? console.log(err) : res.redirect("http://localhost:3005/welcome")
+        err ? console.log(err) : res.redirect(`${process.env.ORIGIN_ALLOWED}/login`)
     })}
 
 // app.get("/refreshToken", async (req, res) => {
@@ -160,9 +160,9 @@ app.post("/login", (req, res) => {
             bcrypt.compare(password, result[0].password, (error, response) => {
                 if (response) {
                     const id = result[0].id
-                    const token = jwt.sign({id}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "2d"})
-                    res.cookie("access-token", token, {expires: new Date(Date.now() + 900000000), sameSite: 'none', secure: false})
-                    res.json({auth: true, result, id});
+                    const token = jwt.sign({id}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "7d"})
+                    res.cookie("access-token", token, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: true, secure: true})
+                    res.status(200).json({auth: true, result, id});
                 } else {
                     res.json({error: "Wrong username/password" })
                 }})
