@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cookieParser())
 
-// app.set("trust proxy", true)
+app.set("trust proxy", true)
 
 const db = mysql.createPool({
     host: process.env.HOST,
