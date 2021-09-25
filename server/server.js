@@ -163,7 +163,7 @@ app.post("/login", (req, res) => {
                 if (response) {
                     const id = result[0].id
                     const token = jwt.sign({id}, process.env.REACT_APP_JWT_SECRET, {expiresIn: "7d"})
-                    res.cookie("access-token", token, {domain: process.env.REACT_APP_domain, path: "/", expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: 'none', secure: true})
+                    res.cookie("access-token", token, {expires: new Date(Date.now() + 900000000), httpOnly: true, sameSite: 'none', secure: true})
                     res.status(200).send({auth: true, result, id});
                 } else {
                     res.json({error: "Wrong username/password" })
@@ -209,7 +209,6 @@ app.post("/upload", verifyJWT, upload, (req, res) => {
 
 app.post("/getphotos", verifyJWT, (req, res) => {
     const userID = req.userID
-    console.log(req.socket.remoteAddress)
     db.query("SELECT id, favorite, photoKey FROM photos WHERE userID = (?) AND trash = 0", 
     [userID], 
     (err, result) => {
