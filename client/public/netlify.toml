@@ -2,3 +2,5 @@
 from = '/*'
 to = '/index.html'
 status = 200
+
+/api/* https://photos-photos.herokuapp.com 200
