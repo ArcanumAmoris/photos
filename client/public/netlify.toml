@@ -2,5 +2,8 @@
 from = '/*'
 to = '/index.html'
 status = 200
-
-/api/* https://photos-photos.herokuapp.com 200
+from = '/api/*'
+to = 'https://photos-photos.herokuapp.com'
+status = 200
+force = true
+headers = {X-From = "Netlify"}
