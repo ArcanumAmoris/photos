@@ -209,6 +209,7 @@ app.post("/upload", verifyJWT, upload, (req, res) => {
 
 app.post("/getphotos", verifyJWT, (req, res) => {
     const userID = req.userID
+    console.log(req.socket.remoteAddress)
     db.query("SELECT id, favorite, photoKey FROM photos WHERE userID = (?) AND trash = 0", 
     [userID], 
     (err, result) => {
