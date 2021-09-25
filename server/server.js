@@ -17,12 +17,6 @@ app.use(cors({credentials: true, origin: process.env.ORIGIN_ALLOWED, optionsSucc
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cookieParser())
-app.use((req, res, next) =>{
-    res.setHeader('Access-Control-Allow-Origin', process.env.ORIGIN_ALLOWED)
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
-    res.setHeader('Access-Control-Allow-Credentials', true)
-    next()
-})
 
 app.set("trust proxy", true)
 
