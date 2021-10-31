@@ -2,12 +2,12 @@
     animation: spin 0.5s linear infinite;
     margin: auto;
     position: fixed;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 35px;
 }
-
+ 
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

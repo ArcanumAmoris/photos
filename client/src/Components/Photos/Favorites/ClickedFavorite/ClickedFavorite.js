@@ -29,8 +29,6 @@ function ClickedFavorite(props) {
         return didMount.current = true
     }, [update, GetFavPhotos])
 
-    console.log("lol")
-
     useEffect(() => {
         setFavPhotos(props.location.value)
     }, [props.location.value])

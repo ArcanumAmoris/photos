@@ -43,7 +43,7 @@
     border: none;
 }
 .sidemenu-item:focus {
-    background-color: rgb(183, 220, 255);
+    background-color: rgb(81, 156, 226);
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
     width: 235px;
