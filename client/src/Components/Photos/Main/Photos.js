@@ -23,7 +23,7 @@ function Photos() {
     }
 
     return (
-        <div className="photos">
+        <div className="photos"> 
             {photos && photos.length > 0 && photos.map(photo => {
                 return <div key={photo.id}><img src={`${process.env.REACT_APP_cloudfrontURL + photo.photoKey}`} className="photos-img" loading="lazy" alt="pic" key={photo.id} onClick={() => clickedPhoto(photo)}/>
                 </div>

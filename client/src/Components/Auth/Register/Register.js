@@ -54,7 +54,7 @@ function Register() {
                     {success && <div className="register_message">
                         <p>{success}</p>
                     </div>}
-                    {error && <div className="register_message" style={{background: "rgba(253, 40, 40, 0.329)", color: "rgb(158, 36, 36)"}}>
+                    {error && <div className="register_message" style={{background: "rgba(253, 40, 40, 0.329)"}}>
                         <p>{error}</p>
                     </div>}
                 </form>

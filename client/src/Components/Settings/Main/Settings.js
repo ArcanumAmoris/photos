@@ -21,7 +21,7 @@ function Settings() {
             <Header />
             <SideMenu />
             <div className="settings_header">
-                <h3>Settings</h3>
+                <h2>Settings</h2>
             </div>
             <div className="settings_content_main">
                 <div className="settings_dark_theme">
