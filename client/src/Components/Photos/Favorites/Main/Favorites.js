@@ -10,6 +10,7 @@ import Loading from '../../../Loading/Loading'
 import { useSelector } from 'react-redux'
 
 function Favorites() {
+    const autoPlayVideos = useSelector(state => state.AutoPlayReducer)
     const loading = useSelector(state => state.LoadingReducer)
     const [favorites, setFavorites] = useState([])
     const history = useHistory()
@@ -37,6 +38,49 @@ function Favorites() {
         history.push({pathname: "favorite/photo", value: favorites})
     }
 
+    function videoOrImage(photo) {
+        const fileType = photo.photoKey.split(".")[1]
+        if (fileType === "mp4") {
+            return <div className="favorite_photo_div" key={photo.id}>
+            <video 
+                src={`${process.env.REACT_APP_cloudfrontURL + photo.photoKey}`}  
+                alt="favorite" 
+                onClick={() => clickedPhoto(photo)} 
+                autoPlay={autoPlayVideos}
+                muted={true}
+            /> 
+            <svg 
+                id="favorite_svg" 
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" 
+                fill="white" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+        </div>
+        } else if (fileType === "jpeg") {
+            return <div className="favorite_photo_div" key={photo.id}>
+            <img 
+                src={`${process.env.REACT_APP_cloudfrontURL + photo.photoKey}`}  
+                alt="favorite" 
+                onClick={() => clickedPhoto(photo)} 
+            /> 
+            <svg 
+                id="favorite_svg" 
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" 
+                fill="white" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+        </div>
+        }
+    }
+
     return (
         <div className="favorites">
             <div className="favorites_header">
@@ -48,11 +92,8 @@ function Favorites() {
             </div>
             <div className="favorite_photos">
             {favorites.map((photo) => {
-                return <div className="favorite_photo_div" key={photo.id}>
-                            <img src={`${process.env.REACT_APP_cloudfrontURL + photo.photoKey}`}  alt="favorite" onClick={() => clickedPhoto(photo)} /> 
-                            <svg id="favorite_svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        </div>
-                     })}
+                return videoOrImage(photo)
+                })}
             </div>
             {loading && <Loading />}
         </div>

@@ -7,6 +7,7 @@ import PhotosReducer from "../Reducers/PhotosReducer"
 import StorageReducer from "./StorageReducer"
 import DarkThemeReducer from "./DarkThemeReducer"
 import LoadingReducer from "./LoadingReducer"
+import AutoPlayReducer from "./AutoPlayReducer"
 
 export default combineReducers({
     UserReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     MessageReducer,
     StorageReducer,
     DarkThemeReducer,
-    LoadingReducer
+    LoadingReducer,
+    AutoPlayReducer
 })

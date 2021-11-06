@@ -48,7 +48,7 @@
 .selected-photo {
     height: 100vh;
     width: auto;
-    cursor:auto!important;
+    /* cursor:auto!important; */
 }
 
 @media (max-width: 900px) {

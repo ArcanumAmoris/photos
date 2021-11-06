@@ -9,13 +9,14 @@
 
 .photos-img  {
     height: 150px;
+    cursor: pointer;
 }
 
 @media (max-width: 900px) {
     .photos {
         margin-left: 60px;
     }
-}
+} 
 
 @media (max-width: 400px) {
     .photos {

@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { useRef } from 'react'
 
 function ClickedIMGTrash(props) {
+    const autoPlayVideos = useSelector(state => state.AutoPlayReducer)
     const message = useSelector(state => state.MessageReducer.message)
     const ref = useRef()
     const TrashPhotos = ref.current = props.location.TrashPhotos
@@ -58,13 +59,40 @@ function ClickedIMGTrash(props) {
         }
     }, [photo, listen])
 
-
     async function permanentlyDelete() {
         const photoID = photo.id
         const photoKey = photo.photoKey
         const response = await axios.post(`${process.env.REACT_APP_backend_url}/delete_photo`, {photoID, photoKey})
         if (response.data) {
-            NextPhoto("Your Photo has been permanently deleted")
+            NextPhoto("Your Photo has been permanently deleted", +1)
+        }
+    }
+
+    const playOrPauseVideo = () => {
+        const vid = document.getElementById("video")
+        if (vid === null) return
+        return vid.paused ? vid.play() : vid.pause()
+    }
+
+    function videoOrImage() {
+        const fileType = photo.photoKey.split(".")[1]
+        if (fileType === "mp4") {
+            return <video 
+                        src={`${process.env.REACT_APP_cloudfrontURL + photo.photoKey}`} 
+                        alt="pic" 
+                        className="selected-photo" 
+                        style={{cursor: "pointer"}} 
+                        id='video' 
+                        onClick={() => playOrPauseVideo()}
+                        autoPlay={autoPlayVideos}
+                    />
+        } else if (fileType === "jpeg") {
+            return <img 
+                        src={`${process.env.REACT_APP_cloudfrontURL + photo.photoKey}`} 
+                        alt="pic" 
+                        className="selected-photo" 
+                        style={{cursor: "auto"}}
+                    />
         }
     }
 
@@ -86,7 +114,7 @@ function ClickedIMGTrash(props) {
                 </div>
             </div>
             <div className="trash-selected-img-div">
-                <img src={`${process.env.REACT_APP_cloudfrontURL + photo.photoKey}`} alt="pic" className="trash-selected-photo"/>
+                {videoOrImage()}
             </div>
             {message && <div className="message">{message}</div>}
         </div>

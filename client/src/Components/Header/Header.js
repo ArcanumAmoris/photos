@@ -36,8 +36,13 @@ function Header() {
             return 
         }
         const formData = new FormData()
-        const image =  await resizeImage(e.target.files[0])
-        formData.append("myImage", image)
+        if (e.target.files[0].type === "video/mp4") {
+            const video = e.target.files[0]
+            formData.append("myImage", video)
+        } else {
+            const image =  await resizeImage(e.target.files[0])
+            formData.append("myImage", image)    
+        }
         const response = await axios.post(`${process.env.REACT_APP_backend_url}/upload`, 
         formData,
         {withCredentials: true}, 

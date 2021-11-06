@@ -10,9 +10,10 @@
     position: relative;
 }
 
-.favorite_photos img {
+.favorite_photos img, video {
     width: auto;
     height: 150px;
+    cursor: pointer;
 }
 
 .favorite_photos {

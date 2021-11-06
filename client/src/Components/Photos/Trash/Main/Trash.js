@@ -12,6 +12,7 @@ import Loading from '../../../Loading/Loading'
 
 function Trash() {
     const loading = useSelector(state => state.LoadingReducer)
+    const autoPlayVideos = useSelector(state => state.AutoPlayReducer)
     const message = useSelector(state => state.MessageReducer.message)
     const [showDiv, setShowDiv] = useState(false)
     const [TrashPhotos, setTrashPhotos] = useState([])
@@ -41,6 +42,37 @@ function Trash() {
         store.dispatch({type: "SelectedPhoto", payload: photo})
         history.push({pathname: "/trash/photo", TrashPhotos: TrashPhotos})
     }
+
+    function videoOrImage(photo) {
+        const fileType = photo.photoKey.split(".")[1]
+        if (fileType === "mp4") {
+            return <div key={photo.id}>
+                <video 
+                    src={`${process.env.REACT_APP_cloudfrontURL + photo.photoKey}`} 
+                    className="photos-img" 
+                    autoPlay={autoPlayVideos}
+                    loop={true}
+                    loading="lazy" 
+                    alt="pic" 
+                    key={photo.id} 
+                    onClick={() => clickedPhoto(photo)} 
+                    id="user-video" 
+                    muted={true}
+                />
+            </div>
+        } else if (fileType === "jpeg") {
+            return <div key={photo.id}>
+                <img 
+                    src={`${process.env.REACT_APP_cloudfrontURL + photo.photoKey}`} 
+                    className="photos-img" 
+                    loading="lazy" 
+                    alt="pic" 
+                    key={photo.id} 
+                    onClick={() => clickedPhoto(photo)}
+                />
+                </div>
+        }
+    }
  
     return (
         <div className="trash_main">
@@ -63,7 +95,7 @@ function Trash() {
                 <p className="text">Items will be permanently deleted after 60 days from Trash.</p>
 
                 {TrashPhotos.map(photo => {
-                    return <img src={`${process.env.REACT_APP_cloudfrontURL + photo.photoKey}`} alt="pic" key={photo.id} className="trash_image" onClick={() => clickedPhoto(photo)}/>
+                    return videoOrImage(photo)
                 })}
                 
             </div>

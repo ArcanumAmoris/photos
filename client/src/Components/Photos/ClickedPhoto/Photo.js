@@ -14,6 +14,7 @@ function Photo() {
     let {id, favorite, photoKey} = useSelector(state => state.ClickedPhotoReducer)
     const photosArray = useSelector(state => state.PhotosReducer.photos)
     const update = useSelector(state => state.UpdateReducer)
+    const autoPlayVideos = useSelector(state => state.AutoPlayReducer)
 
     useEffect(() => {
         return () => {
@@ -63,6 +64,34 @@ function Photo() {
         }
     }, [id, listen])
 
+    const playOrPauseVideo = () => {
+        const vid = document.getElementById("video")
+        if (vid === null) return
+        return vid.paused ? vid.play() : vid.pause()
+    }
+
+    function videoOrImage() {
+        const fileType = photoKey.split(".")[1]
+        if (fileType === "mp4") {
+            return <video 
+                        src={`${process.env.REACT_APP_cloudfrontURL + photoKey}`} 
+                        alt="pic" 
+                        className="selected-photo" 
+                        style={{cursor: "pointer"}} 
+                        id='video' 
+                        onClick={() => playOrPauseVideo()}
+                        autoPlay={autoPlayVideos}
+                    />
+        } else if (fileType === "jpeg") {
+            return <img 
+                        src={`${process.env.REACT_APP_cloudfrontURL + photoKey}`} 
+                        alt="pic" 
+                        className="selected-photo" 
+                        style={{cursor: "auto"}}
+                    />
+        }
+    }
+
     return (
         <div className="photo-main">
              <div className="photo-icons">
@@ -77,7 +106,7 @@ function Photo() {
             
             </div> 
             <div className="photo-display">
-                <img src={`${process.env.REACT_APP_cloudfrontURL + photoKey}`} alt="pic" className="selected-photo"/>
+                {videoOrImage()}
             </div>
             {message && <div className="message">{message}</div>}
         </div>
