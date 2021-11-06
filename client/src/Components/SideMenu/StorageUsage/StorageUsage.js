@@ -9,9 +9,9 @@ function StorageUsage() {
     const [bytes, setBytes] = useState()
 
     function bytesToGB(bytes) {
-        const GB = bytes / (1011*1011)
-        setBytes(GB.toFixed(2))
-        store.dispatch({type: "SetStorage", payload: GB.toFixed(2)})
+        const MB = bytes / (1011*1011)
+        setBytes(MB.toFixed(2))
+        store.dispatch({type: "SetStorage", payload: MB.toFixed(2)})
     }
 
     useEffect(() => {

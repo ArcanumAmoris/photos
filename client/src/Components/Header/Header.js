@@ -17,6 +17,11 @@ function Header() {
     const storageUsage = useSelector(state => state.StorageReducer)
     const [showLimitWarning, setShowWarning] = useState(false)
 
+    function bytesToGB(bytes) {
+        const MB = bytes / (1011*1011)
+        return Number(MB.toFixed(2))
+    }
+
     const resizeImage = (file) =>
     new Promise((resolve) => {
         if (!file) return
@@ -29,8 +34,10 @@ function Header() {
     });
 
     async function UploadImage(e) {
+        if (!e.target.files[0]) return
+        const fileSize = await bytesToGB(e.target.files[0].size)
         store.dispatch({type: "SetLoading", payload: true})
-        if (storageUsage > 7) {
+        if (fileSize + Number(storageUsage) > 7) {
             setShowWarning(true) 
             store.dispatch({type: "SetLoading", payload: false})
             return 
