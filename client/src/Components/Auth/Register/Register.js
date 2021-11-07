@@ -24,7 +24,7 @@ function Register() {
                 setSuccess(response.data.success)
             }
         } catch (err) {
-            console.log(err)
+            setError(err)
         }}
 
     function showPassword() {

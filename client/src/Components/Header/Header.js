@@ -16,6 +16,8 @@ import history from '../../history'
 function Header() {
     const storageUsage = useSelector(state => state.StorageReducer)
     const [showLimitWarning, setShowWarning] = useState(false)
+    const allowedFileExtensions = ["image/jpeg", "image/png", "video/mp4", "image/svg+xml"]
+    const [error, setError] = useState("")
 
     function bytesToGB(bytes) {
         const MB = bytes / (1011*1011)
@@ -41,6 +43,10 @@ function Header() {
             setShowWarning(true) 
             store.dispatch({type: "SetLoading", payload: false})
             return 
+        }
+        if (!allowedFileExtensions.includes(e.target.files[0].type)) {
+            store.dispatch({type: "SetLoading", payload: false})
+            return setError("OOPS! You cannot upload a file with that extension!")
         }
         const formData = new FormData()
         if (e.target.files[0].type === "video/mp4") {
@@ -94,6 +100,9 @@ function Header() {
                 </div>
             </div>
             {showLimitWarning && <StorageWarning value={setShowWarning}/>}
+            {error && <div className="login_error">
+                <p>{error}</p>
+                </div>}
         </header>
     )
 }

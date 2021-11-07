@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 import store from '../../../Redux/Store/Store'
 import sun from "../../Images/sun.svg"
 import moon from "../../Images/moon.png"
+import toggleCheck from "../../Images/toggleCheck.png"
+// import toggleOff from "../../Images/toggleOff.svg"
 
 function Settings() {
     const darkTheme = useSelector(state => state.DarkThemeReducer)
@@ -40,13 +42,12 @@ function Settings() {
                     <div className="settings_toggle_div">
                         <p>AutoPlay videos</p>
                         <div className="settings_toggle" onClick={() => toggleAutoPlay()}> 
-                            {!autoPlayVideos && <img src={sun} className="settings_drk_them_off" alt="sun"/>}
-                            {autoPlayVideos && <img src={moon} className="settings_check"alt="moon" />}
+                            {!autoPlayVideos && <div className="toggle-off-parent"><div className="toggle-off-symbol"></div></div>}
+                            {autoPlayVideos && <img src={toggleCheck} className="settings_check"alt="moon" />}
                         </div>
                     </div>
 
                 </div>
-                {/* <button onClick={() => history.push("/settings/upgrade")}>Upgrade Account</button> */}
             </div>
         </div>
     )
