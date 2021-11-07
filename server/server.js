@@ -92,7 +92,7 @@ app.post("/resend_link", (req, res) => {
     }
 )})
 
-app.get("/confirm/:confirmid", (req, res) => {
+app.post("/confirm/:confirmid", (req, res) => {
     const {confirmid} = req.params
     db.query("SELECT confirmationtoken, id FROM users WHERE confirmationtoken = ?", 
     [confirmid],
