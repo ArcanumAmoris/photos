@@ -275,7 +275,7 @@ app.post("/restore_photo", (req, res) => {
 
 app.post("/get_storage", verifyJWT, (req, res) => {
     const userID = req.userID
-    db.query("SELECT SUM(fileSize) AS sum FROM photos WHERE userID = ? AND trash = 0", 
+    db.query("SELECT SUM(fileSize) AS sum FROM photos WHERE userID = ?", 
     [userID], 
     (err, result) => {
         err ? console.log(err) : res.send(result)
