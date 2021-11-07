@@ -39,7 +39,7 @@ function Header() {
         if (!e.target.files[0]) return
         const fileSize = await bytesToGB(e.target.files[0].size)
         store.dispatch({type: "SetLoading", payload: true})
-        if (fileSize + Number(storageUsage) > 7) {
+        if (fileSize + Number(storageUsage) > 20) {
             setShowWarning(true) 
             store.dispatch({type: "SetLoading", payload: false})
             return 
