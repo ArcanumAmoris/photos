@@ -391,6 +391,26 @@ app.post("/empty_trash", verifyJWT, (req, res) => {
         })
     })
 
+
+app.post("/delete-account", verifyJWT, (req, res) => {
+    const userID = req.userID
+    const params = {
+        Bucket: "photos-photos",
+        Key: `/${userID}`
+    }
+    s3.deleteObject(params, (error, response) => {
+        if (error) {
+            console.log(error)
+        } else {
+            db.query("Delete FROM users WHERE id = ?", 
+            [userID],
+            (err, result) => {
+                err ? res.send({error: "An error occurred"}) : res.send({success: "You have successfully deleted your account!"})
+            })
+        }
+    })
+})
+
 app.listen(process.env.PORT || 3001, () => {
     console.log("Running...")
 })

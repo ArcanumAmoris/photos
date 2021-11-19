@@ -7,6 +7,7 @@ import store from '../../../Redux/Store/Store'
 import sun from "../../Images/sun.svg"
 import moon from "../../Images/moon.png"
 import toggleCheck from "../../Images/toggleCheck.png"
+import DeleteAccount from '../DeleteAccount/DeleteAccount'
 // import toggleOff from "../../Images/toggleOff.svg"
 
 function Settings() {
@@ -46,8 +47,8 @@ function Settings() {
                             {autoPlayVideos && <img src={toggleCheck} className="settings_check"alt="moon" />}
                         </div>
                     </div>
-
                 </div>
+                <DeleteAccount />
             </div>
         </div>
     )
