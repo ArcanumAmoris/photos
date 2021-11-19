@@ -1,0 +1,85 @@
+.delete-account-main {
+    position: absolute;
+    top: 75%;
+}
+
+.delete-account-main button {
+   cursor: pointer;
+}
+
+.delete-account-main-btn {
+    background-color: rgb(255, 59, 59);
+    border: none;
+    padding: 10px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: white;
+    font-size: medium;
+    font-weight: 600;
+}
+
+.delete-account-main-btn:hover {
+    background-color: red;
+}
+
+.delete-account-warning-wrapper {
+    position:fixed;
+    width: 100%;
+    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: rgba(46, 46, 46, 0.7);
+}
+
+.delete-account-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: #fff;
+    height: fit-content;
+    width: 210px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 4px;
+}
+
+.delete-account-buttons-div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.delete-account-buttons-div button {
+    padding: 7px 8px;
+    font-weight: 700;
+    border-radius: 4px;
+}
+
+.delete-account-cancel-btn {
+    background: none;
+    border: none;
+    color:#1a73e8;
+    width: 100px;
+}
+
+.delete-account-cancel-btn:hover {
+    background-color: #bbc2ca;
+}
+
+.delete-account-del-btn {
+    background-color: rgb(230, 59, 59);
+    border: none;  
+    color: #fff;
+    width: 100px;
+}
+
+.delete-account-del-btn:hover {
+    background-color: red;
+}

@@ -25,7 +25,7 @@ function StorageUsage() {
     }, [update])
 
     function storagePercentage() {
-        return (bytes / 50) * 100
+        return (bytes / 20) * 100
     }
 
     return (
@@ -38,7 +38,7 @@ function StorageUsage() {
                 <div className="storage_percentage_div">
                     <div className="storage_percentage_line" style={{width: `${storagePercentage()}%`}}></div>
                 </div>
-                <p>{bytes} MB of 50 MB used</p>
+                <p>{bytes} MB of 20 MB used</p>
             </div>
         </div>
     )
