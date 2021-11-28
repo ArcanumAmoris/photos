@@ -354,14 +354,14 @@ function deletePhoto(photoKey, photoID, res) {
     }
 }
 
-app.post("/update_profile", (req, res) => {
-    const {userID, username, status} = req.body
-    db.query("INSERT INTO profile (username, status, id) VALUES(?,?,?) ON DUPLICATE KEY UPDATE username=?, status=?",
-    [username, status, userID, username, status],
-    (err, result) => {
-        err ? console.log(err) : res.send(result)
-    })
-})
+// app.post("/update_profile", (req, res) => {
+//     const {userID, username, status} = req.body
+//     db.query("INSERT INTO profile (username, status, id) VALUES(?,?,?) ON DUPLICATE KEY UPDATE username=?, status=?",
+//     [username, status, userID, username, status],
+//     (err, result) => {
+//         err ? console.log(err) : res.send(result)
+//     })
+// })
 
 app.post("/empty_trash", verifyJWT, (req, res) => {
     const userID = req.userID
