@@ -8,11 +8,9 @@ import store from '../../../Redux/Store/Store'
 import { Message } from '../../../Redux/Actions/Actions'
 
 function DeleteAccount() {
-    let countdown = 6
     const message = useSelector(state => state.MessageReducer.message)
     const [showWarning, setShowWarning] = useState(false)
     const [deleted, setDeleted] = useState(false)
-    const userID = useSelector(state => state.UserReducer.userID)
 
     async function deleteAccount() {
         const result = await axios.post(`${process.env.REACT_APP_backend_url}/delete-account`, 
@@ -43,7 +41,7 @@ function DeleteAccount() {
 
                     <p>Are you sure you want to permanently delete your account?
                     <br></br>
-                    This cannot be undone!
+                    <b>This cannot be undone!</b>
                     <br></br>
                     All of your data including your photos will be permanently deleted!
                     </p>

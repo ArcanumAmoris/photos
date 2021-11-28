@@ -83,3 +83,10 @@
 .delete-account-del-btn:hover {
     background-color: red;
 }
+
+@media (max-width: 400px) {
+    .delete-account-main {
+        top: 150%;
+    }
+    
+}
